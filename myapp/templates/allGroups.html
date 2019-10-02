@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 900px;
+            /* height: 800px; */
+            /* border: 2px solid black; */
+            margin-left: 30px;
+        }
+        .box{
+            width: 400px;
+            height: 740px;
+            /* border: 2px solid black; */
+            margin-top: 30px;
+        }
+        .box1{
+            width: 350px;
+            height: 300px;
+            border: 2px solid black;
+            margin-left: 490px;
+            margin-top: -500px;
+            padding: 5px 5px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <a href="/" style="float: right">Logout</a>
+            <h1>Welcome, {{loggedinuser.fname}}</h1>
+            <br>
+            <p>Here are the organizations you may join:</p>
+            {% for organization in new_org %}
+            <a href="/showGroup/{{organization.id}}">{{organization.org_name}}</a>
+            <p>Members: {{organization.users_who_joined.count}}</p>
+            {{organization.description}} <br><br>
+            {% endfor %}
+        </div>
+        <div class="box1">
+            <h4>Create a new organization:</h4>
+            {% for message in messages %}
+            <ul class="messages">
+                <li>{{ message }}</li>
+            </ul>
+            {% endfor %}
+            <form action="/addOrganization" method="post">
+                {% csrf_token %}
+                Org Name: <input type="text" id="" name="org_name" style="border: 2px solid black;margin-left: 20px"><br><br>
+                Descriptipon: <textarea name="description" id="" cols="18" rows="4"style="border: 2px solid black;margin-left:3px"></textarea>
+                <a href="/allGroups"><button style="border: 5px solid black; margin-left: 200px; margin-top: 30px">Create</button></a>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
